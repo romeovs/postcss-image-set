@@ -1,8 +1,9 @@
-# postcss-image-set [![Build Status](https://travis-ci.org/alex499/postcss-image-set.svg)](https://travis-ci.org/alex499/postcss-image-set)
+# postcss-image-set-polyfill [![Build Status](https://travis-ci.org/alex499/postcss-image-set.svg)](https://travis-ci.org/alex499/postcss-image-set)
 
-[PostCSS] plugin for fallback image-set.
+[PostCSS] plugin for fallback [image-set] property.
 
 [PostCSS]: https://github.com/postcss/postcss
+[image-set]: http://caniuse.com/#feat=css-image-set
 
 ```css
 /* Input example */
@@ -17,37 +18,30 @@
 /* Output example */
 .foo {
     background-image: url(img/test.png);
-    background-image: image-set(url(img/test.png) 1x,
-                                url(img/test-2x.png) 2x,
-                                url(my-img-print.png) 600dpi);
 }
 
-/* polyfill behaviour */
 @media (screen and min-resolution: 2dppx) {
     .foo {
         background-image: url(img/test-2x.png);
-        /* let browser that support image-set choose themselves */
-        background-image: image-set(url(img/test.png) 1x,
-                                    url(img/test-2x.png) 2x,
-                                    url(my-img-print.png) 600dpi);
     }
 }
 
 @media (screen and min-resolution: 600pdi) {
     .foo{
         background-image: url(my-img-print.png);
-        /* let browser that support image-set choose themselves */
-        background-image: image-set(url(img/test.png) 1x,
-                                    url(img/test-2x.png) 2x,
-                                    url(my-img-print.png) 600dpi);
     }
 }
 ```
+## Installation
+
+`npm i postcss-image-set-polyfill -D`
 
 ## Usage
 
 ```js
-postcss([ require('postcss-image-set') ])
+var postcssImageSet = require('postcss-image-set-polyfill');
+
+postcss([postcssImageSet]).process(YOUR_CSS, /* options */);;
 ```
 
 See [PostCSS] docs for examples for your environment.
